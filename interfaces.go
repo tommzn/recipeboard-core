@@ -17,3 +17,10 @@ type Repository interface {
 	// Try to delete the passed recipe.
 	Delete(Recipe) error
 }
+
+// Publishes messages for recipes to a queue or broker.
+type MessagePublisher interface {
+
+	// Sends given message to a message queue.
+	Send(RecipeMessage) error
+}

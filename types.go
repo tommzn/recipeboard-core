@@ -97,7 +97,7 @@ type RecipeMessage struct {
 	Action RecipeAction
 
 	// Sequence id for messages, to avoid conflicts or ordering issues.
-	Sequence int
+	Sequence int64
 
 	// The recipe an action has been performed for.
 	Recipe Recipe
@@ -111,4 +111,11 @@ type DynamoDbRepository struct {
 
 	// Logger.
 	logger log.Logger
+}
+
+// Mock for message publishing. Will be implemented later.
+type PublisherMock struct {
+
+	// Queue with all recipe messages
+	queue []RecipeMessage
 }

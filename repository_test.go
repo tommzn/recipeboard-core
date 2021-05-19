@@ -21,7 +21,7 @@ func TestRepositoryTestSuite(t *testing.T) {
 	suite.Run(t, new(RepositoryTestSuite))
 }
 
-// Setup test. Loac config, create repository and init DynamoDb table.
+// Setup test. Load config, create repository and init DynamoDb table.
 func (suite *RepositoryTestSuite) SetupTest() {
 	suite.Nil(config.UseConfigFileIfNotExists("testconfig"))
 	suite.conf = loadConfigForTest()
