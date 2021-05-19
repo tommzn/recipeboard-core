@@ -1,2 +1,3 @@
-# recipeboard-core
-Core components for recipe board project.
+# Recipe Board Core
+Core components of the recipe board project.
+includs the core model and persistence layer.

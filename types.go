@@ -4,21 +4,19 @@ import (
 	"time"
 
 	"gitlab.com/tommzn-go/aws/dynamodb"
+	"gitlab.com/tommzn-go/utils/log"
 )
 
+// Type is used to group recipes e.g. for cooking or baking.
 type RecipeType int
-type RecipeAction string
-type ObjectType string
 
 const (
 	CookingRecipe RecipeType = iota
 	BakingRecipe
 )
 
-const (
-	ObjectType_Recipe ObjectType = "RECIPEBOARD_RECIPE"
-	ObjectType_Index             = "RECIPEBOARD_INDEX"
-)
+// Action performed for a recipe.
+type RecipeAction string
 
 const (
 	RecipeAdded   RecipeAction = "RecipeAddedd"
@@ -26,32 +24,91 @@ const (
 	RecipeDeleted              = "RecipeDeleted"
 )
 
+// DynamoDb ibject type.
+type objectType string
+
+const (
+	objectType_Recipe objectType = "RECIPEBOARD_RECIPE"
+	objectType_Index             = "RECIPEBOARD_INDEX"
+)
+
+// Central model for a recipe.
 type Recipe struct {
-	Id          string
-	Type        RecipeType
-	Title       string
+
+	// Identifier of  a recipe.
+	Id string
+
+	// Type of a recipe.
+	Type RecipeType
+
+	// Title or headline for a recipe.
+	Title string
+
+	// List of ingredients.
 	Ingredients string
+
+	// Description, e.g. instructions for preparation.
 	Description string
-	CreatedAt   time.Time
+
+	// Timestamp a recipe has been created.
+	CreatedAt time.Time
 }
 
-type RecipeItem struct {
-	dynamodb.ItemId
-	Type        RecipeType
-	Title       string
+type recipeItem struct {
+
+	// Id for an item in DynamoDb.
+	*dynamodb.ItemId
+
+	// Type of a recipe.
+	Type RecipeType
+
+	// Title or headline for a recipe.
+	Title string
+
+	// List of ingredients.
 	Ingredients string
+
+	// Description, e.g. instructions for preparation.
 	Description string
-	CreatedAt   time.Time
+
+	// Timestamp a recipe has been created.
+	CreatedAt time.Time
 }
 
-type RecipeIndex struct {
-	dynamodb.ItemId
-	Ids []string
+// A recipe index is maintainey by the repository
+// to provide a faster access to items in DynamoDb.
+type recipeIndex struct {
+
+	// DynamoDb identifier.
+	*dynamodb.ItemId
+
+	// List of recipe ids.
+	Ids map[string]bool
 }
 
+// A recipe message is published after an action for
+// a recipe has been performed.
 type RecipeMessage struct {
-	Id       string
-	Action   RecipeAction
+
+	// Message id.
+	Id string
+
+	// Action performed for a recipe.
+	Action RecipeAction
+
+	// Sequence id for messages, to avoid conflicts or ordering issues.
 	Sequence int
-	Recipe   Recipe
+
+	// The recipe an action has been performed for.
+	Recipe Recipe
+}
+
+// Adapter to persist recipes in AWS DynamoDb.
+type DynamoDbRepository struct {
+
+	// DynamoDb client.
+	client dynamodb.Repository
+
+	// Logger.
+	logger log.Logger
 }
