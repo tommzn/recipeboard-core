@@ -54,6 +54,7 @@ type Recipe struct {
 	CreatedAt time.Time
 }
 
+// DynamoDb recipe item.
 type recipeItem struct {
 
 	// Id for an item in DynamoDb.
@@ -101,6 +102,16 @@ type RecipeMessage struct {
 
 	// The recipe an action has been performed for.
 	Recipe Recipe
+}
+
+// Domain service to manage recipe life circle
+type RecipeManager struct {
+
+	// Backend repository for recipes.
+	repository Repository
+
+	// Publisher to send notifications after actions for recipes has been performed.
+	publisher MessagePublisher
 }
 
 // Adapter to persist recipes in AWS DynamoDb.
