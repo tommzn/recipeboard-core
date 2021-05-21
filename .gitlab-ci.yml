@@ -8,6 +8,9 @@ include:
   - project: 'tommzn-solutions-dev/devops/ci-template'
     ref: master
     file: '/release/semantic-version.yml'
+  - project: 'tommzn-solutions-dev/devops/ci-template'
+    ref: master
+    file: '/release/push_tags_to_github.yml'
     
 stages:
   - test
