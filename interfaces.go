@@ -1,5 +1,25 @@
 package core
 
+// Domain service to manage recipe live circls.
+type RecipeService interface {
+
+	// Create a new recipe.
+	Create(Recipe) (Recipe, error)
+
+	// Update an existing recipe.
+	Update(Recipe) error
+
+	// Try to retrieve a recipe for passed id.
+	Get(string) (*Recipe, error)
+
+	// Lists all available recipes for passed type.
+	// It doesn't take care about ordering of recipes.
+	List(RecipeType) ([]Recipe, error)
+
+	// Try to delete the passed recipe.
+	Delete(Recipe) error
+}
+
 // Persistence interface to manage recipe lifecircle.
 type Repository interface {
 
