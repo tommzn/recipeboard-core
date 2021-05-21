@@ -1,4 +1,4 @@
-module gitlab.com/tommzn-solutions-dev/recipeboard/cor
+module gitlab.com/tommzn-solutions-dev/recipeboard/core
 
 go 1.13
 
