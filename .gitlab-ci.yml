@@ -1,6 +1,6 @@
 variables:
   TZN_CONFIGFILE: "gitlab.config"
-  GITHUB_REPO: "git@gitlab.com:tommzn-ext/github.com/recipeboard-core.git"
+  GITHUB_REPO: "git@github.com:tommzn/recipeboard-core.git"
   
 include:
   - project: 'tommzn-solutions-dev/devops/ci-template'
