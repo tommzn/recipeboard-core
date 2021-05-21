@@ -1,8 +1,17 @@
 package mock
 
-// Mock for message publishing. Will be implemented later.
+import core "github.com/tommzn/recipeboard-core"
+
+// Mock for message publishing.
 type PublisherMock struct {
 
 	// Queue with all recipe messages
-	queue []RecipeMessage
+	Queue []core.RecipeMessage
+}
+
+// Mock for recipe repository.
+type RepositoryMock struct {
+
+	// Map with all avaiable recipes.
+	Recipes map[string]core.Recipe
 }
