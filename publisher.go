@@ -10,7 +10,7 @@ import (
 
 // Creates a new message publisher.
 // At the moment only a mock with an internal slice of all published messages.
-func NewPublisher(conf config.Config, logger log.Logger) MessagePublisher {
+func newPublisher(conf config.Config, logger log.Logger) MessagePublisher {
 
 	return &PublisherMock{
 		queue: []RecipeMessage{},
@@ -25,7 +25,7 @@ func (mock *PublisherMock) Send(message RecipeMessage) error {
 
 // Creates a new recipe message for goven recipe.
 // Will assign a new id and sequence number.
-func NewRecipeMessage(recipe Recipe, action RecipeAction) RecipeMessage {
+func newRecipeMessage(recipe Recipe, action RecipeAction) RecipeMessage {
 
 	return RecipeMessage{
 		Id:       common.NewId(nil),

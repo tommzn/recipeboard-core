@@ -26,13 +26,13 @@ func (suite *RepositoryTestSuite) SetupTest() {
 	suite.Nil(config.UseConfigFileIfNotExists("testconfig"))
 	suite.conf = loadConfigForTest()
 	suite.repo = repositoryForTest(suite.conf)
-	tablename, region, endpoint := suite.awsConfigForTest()
+	tablename, region, endpoint := awsConfigForTest(suite.conf)
 	suite.Nil(testutils.SetupTableForTest(tablename, region, endpoint))
 }
 
 // Tear down and delete DynamoDb table.
 func (suite *RepositoryTestSuite) TearDownTest() {
-	tablename, region, endpoint := suite.awsConfigForTest()
+	tablename, region, endpoint := awsConfigForTest(suite.conf)
 	suite.Nil(testutils.TearDownTableForTest(tablename, region, endpoint))
 }
 
@@ -169,13 +169,13 @@ func (suite *RepositoryTestSuite) assertRecipeCountForType(recipeType RecipeType
 // Create a new repository for testing with passed config and
 // a default stdout logger.
 func repositoryForTest(conf config.Config) Repository {
-	return NewRepository(conf, loggerForTest())
+	return newRepository(conf, loggerForTest())
 }
 
 // Load DynamoDb settings from passed config
-func (suite *RepositoryTestSuite) awsConfigForTest() (*string, *string, *string) {
-	tablename := suite.conf.Get("aws.dynamodb.tablename", nil)
-	region := suite.conf.Get("aws.dynamodb.awsregion", nil)
-	endpoint := suite.conf.Get("aws.dynamodb.endpoint", nil)
+func awsConfigForTest(conf config.Config) (*string, *string, *string) {
+	tablename := conf.Get("aws.dynamodb.tablename", nil)
+	region := conf.Get("aws.dynamodb.awsregion", nil)
+	endpoint := conf.Get("aws.dynamodb.endpoint", nil)
 	return tablename, region, endpoint
 }

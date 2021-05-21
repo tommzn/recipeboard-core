@@ -17,11 +17,8 @@ import (
 //     tablename: DynamoDbTable
 //     region: eu-west-1
 //     endpoint: http://localhost:8000
-func NewRepository(conf config.Config, logger log.Logger) Repository {
+func newRepository(conf config.Config, logger log.Logger) Repository {
 
-	if logger == nil {
-		logger = newLogger()
-	}
 	return &DynamoDbRepository{
 		client: dynamodb.NewRepository(conf, logger),
 		logger: logger,

@@ -30,3 +30,13 @@ func recipeForTest() Recipe {
 		CreatedAt:   time.Now(),
 	}
 }
+
+// Returns a new recipe without an id and createdAt value
+func recipeForServiceTest() Recipe {
+	return Recipe{
+		Type:        BakingRecipe,
+		Title:       "Bake a Cake",
+		Ingredients: "100g Mehl\n100g Zucker\n50ml Wasser",
+		Description: "Einrühren.\nBacken.\nFertig!",
+	}
+}
