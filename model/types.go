@@ -8,17 +8,17 @@ import (
 type RecipeType int
 
 const (
-	CookingRecipe RecipeType = iota
-	BakingRecipe
+	CookingRecipe RecipeType = iota // Cooking recipes
+	BakingRecipe                    // Baking recipes
 )
 
 // Action performed for a recipe.
 type RecipeAction string
 
 const (
-	RecipeAdded   RecipeAction = "RecipeAddedd"
-	RecipeUpdated              = "RecipeUpdated"
-	RecipeDeleted              = "RecipeDeleted"
+	RecipeAdded   RecipeAction = "RecipeAddedd"  // A new recipe has been added.
+	RecipeUpdated              = "RecipeUpdated" // An existing recipe has been updates.
+	RecipeDeleted              = "RecipeDeleted" // A recipe was deleted.
 )
 
 // Central model for a recipe.

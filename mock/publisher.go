@@ -1,3 +1,4 @@
+// Provides mocks for persistence layer and publisher for the recipe board project.
 package mock
 
 import (
