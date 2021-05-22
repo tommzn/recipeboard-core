@@ -3,15 +3,15 @@ package mock
 import (
 	"time"
 
-	core "github.com/tommzn/recipeboard-core"
+	model "github.com/tommzn/recipeboard-core/model"
 	"gitlab.com/tommzn-go/utils/common"
 )
 
 // Creates a new recipe with dummy values for testing
-func recipeForTest() core.Recipe {
-	return core.Recipe{
+func recipeForTest() model.Recipe {
+	return model.Recipe{
 		Id:          common.NewId(nil),
-		Type:        core.BakingRecipe,
+		Type:        model.BakingRecipe,
 		Title:       "Bake a Cake",
 		Ingredients: "100g Mehl\n100g Zucker\n50ml Wasser",
 		Description: "Einrühren.\nBacken.\nFertig!",
@@ -20,10 +20,10 @@ func recipeForTest() core.Recipe {
 }
 
 // Creates a new recipe message with dummy values for testing
-func recipeMessageForTest() core.RecipeMessage {
-	return core.RecipeMessage{
+func recipeMessageForTest() model.RecipeMessage {
+	return model.RecipeMessage{
 		Id:       common.NewId(nil),
-		Action:   core.RecipeAdded,
+		Action:   model.RecipeAdded,
 		Sequence: time.Now().UnixNano(),
 		Recipe:   recipeForTest(),
 	}

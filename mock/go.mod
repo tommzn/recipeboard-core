@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/stretchr/testify v1.6.1
 	github.com/tommzn/recipeboard-core v0.2.3
+	github.com/tommzn/recipeboard-core/model v0.2.6
 	gitlab.com/tommzn-go/utils/common v0.0.1
 	gitlab.com/tommzn-solutions-dev/recipeboard/core v0.2.2
 )
