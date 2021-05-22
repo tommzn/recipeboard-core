@@ -1,5 +1,5 @@
 // Contains the core model and interfaces for the recipe board project.
-package core
+package model
 
 // Persistence interface to manage recipe life circle.
 type Repository interface {
