@@ -9,13 +9,13 @@ Includes the receipe manager to manager life circle of receips, together with a 
 and a publisher to send notifications about actions performed for recipe.
 
 ## Sub Modules
-### Mock
+### [Mock](https://github.com//tommzn/recipeboard-core/mock)
 [![Go Reference](https://pkg.go.dev/badge/github.com/tommzn/recipeboard-core.svg)](https://pkg.go.dev/github.com/tommzn/recipeboard-core/mock)
 
 Provices a persitsence and a publisher mock. Both implementes inferface given by core module can 
 i.e. be used for testing.
 
-### Model
+### [Model](https://github.com//tommzn/recipeboard-core/model)
 [![Go Reference](https://pkg.go.dev/badge/github.com/tommzn/recipeboard-core.svg)](https://pkg.go.dev/github.com/tommzn/recipeboard-core/model)
 
 Contains the core model fo recipes and messaging and interfaces for persistence layer and publishers.
