@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/suite"
+	model "github.com/tommzn/recipeboard-core/model"
 	"gitlab.com/tommzn-go/utils/config"
 	testutils "gitlab.com/tommzn-go/utils/testing"
 )
@@ -76,14 +77,14 @@ func (suite *RepositoryTestSuite) TestListRecipes() {
 	recipe1_2 := recipeForTest()
 	recipe1_3 := recipeForTest()
 	recipe2_1 := recipeForTest()
-	recipe2_1.Type = CookingRecipe
-	recipes := []Recipe{recipe1_1, recipe1_2, recipe1_3, recipe2_1}
+	recipe2_1.Type = model.CookingRecipe
+	recipes := []model.Recipe{recipe1_1, recipe1_2, recipe1_3, recipe2_1}
 	for _, recipe := range recipes {
 		suite.Nil(suite.repo.Set(recipe))
 	}
 
-	suite.assertRecipeCountForType(BakingRecipe, 3)
-	suite.assertRecipeCountForType(CookingRecipe, 1)
+	suite.assertRecipeCountForType(model.BakingRecipe, 3)
+	suite.assertRecipeCountForType(model.CookingRecipe, 1)
 }
 
 // Test delete a recipe.
@@ -91,17 +92,17 @@ func (suite *RepositoryTestSuite) TestDeleteRecipe() {
 
 	recipe1 := recipeForTest()
 	recipe2 := recipeForTest()
-	recipes := []Recipe{recipe1, recipe2}
+	recipes := []model.Recipe{recipe1, recipe2}
 	for _, recipe := range recipes {
 		suite.Nil(suite.repo.Set(recipe))
 	}
 
-	suite.assertRecipeCountForType(BakingRecipe, 2)
-	suite.assertRecipeCountForType(CookingRecipe, 0)
+	suite.assertRecipeCountForType(model.BakingRecipe, 2)
+	suite.assertRecipeCountForType(model.CookingRecipe, 0)
 
 	suite.repo.Delete(recipe2)
-	suite.assertRecipeCountForType(BakingRecipe, 1)
-	suite.assertRecipeCountForType(CookingRecipe, 0)
+	suite.assertRecipeCountForType(model.BakingRecipe, 1)
+	suite.assertRecipeCountForType(model.CookingRecipe, 0)
 	suite.assertIdExistsInIndex(recipe1.Type, recipe1.Id)
 	suite.assertIdNotExistsInIndex(recipe2.Type, recipe2.Id)
 }
@@ -114,7 +115,7 @@ func (suite *RepositoryTestSuite) TestUpdateRecipeType() {
 
 	suite.Nil(suite.repo.Set(recipe))
 
-	recipe.Type = CookingRecipe
+	recipe.Type = model.CookingRecipe
 	suite.Nil(suite.repo.Set(recipe))
 
 	recipe2, err := suite.repo.Get(recipe.Id)
@@ -122,12 +123,12 @@ func (suite *RepositoryTestSuite) TestUpdateRecipeType() {
 	suite.NotNil(recipe2)
 	suite.assertRecipeIsEqual(recipe, *recipe2)
 	suite.assertIdExistsInIndex(recipe.Type, recipe.Id)
-	suite.assertIdNotExistsInIndex(BakingRecipe, recipe.Id)
+	suite.assertIdNotExistsInIndex(model.BakingRecipe, recipe.Id)
 }
 
 // Assert that expected recipe is equal to current recipe.
 // Uses time format RFC3339 to companre CreatedAt value.
-func (suite *RepositoryTestSuite) assertRecipeIsEqual(expectedRecipe, recipe Recipe) {
+func (suite *RepositoryTestSuite) assertRecipeIsEqual(expectedRecipe, recipe model.Recipe) {
 	suite.Equal(expectedRecipe.Id, recipe.Id)
 	suite.Equal(expectedRecipe.Type, recipe.Type)
 	suite.Equal(expectedRecipe.Title, recipe.Title)
@@ -137,7 +138,7 @@ func (suite *RepositoryTestSuite) assertRecipeIsEqual(expectedRecipe, recipe Rec
 }
 
 // Fetch index for given type and assert passed id exists in.
-func (suite *RepositoryTestSuite) assertIdExistsInIndex(recipeType RecipeType, id string) {
+func (suite *RepositoryTestSuite) assertIdExistsInIndex(recipeType model.RecipeType, id string) {
 
 	recipeIndex := newRecipeIndex(recipeType)
 	suite.Nil(suite.repo.(*DynamoDbRepository).client.Get(recipeIndex))
@@ -146,7 +147,7 @@ func (suite *RepositoryTestSuite) assertIdExistsInIndex(recipeType RecipeType, i
 }
 
 // Fetch index for given type and assert passed id not exists in.
-func (suite *RepositoryTestSuite) assertIdNotExistsInIndex(recipeType RecipeType, id string) {
+func (suite *RepositoryTestSuite) assertIdNotExistsInIndex(recipeType model.RecipeType, id string) {
 
 	recipeIndex := newRecipeIndex(recipeType)
 	suite.Nil(suite.repo.(*DynamoDbRepository).client.Get(recipeIndex))
@@ -155,7 +156,7 @@ func (suite *RepositoryTestSuite) assertIdNotExistsInIndex(recipeType RecipeType
 }
 
 // Fetches all recipes by given type and assert expected number of them.
-func (suite *RepositoryTestSuite) assertRecipeCountForType(recipeType RecipeType, expectedNumberOfRecipes int) {
+func (suite *RepositoryTestSuite) assertRecipeCountForType(recipeType model.RecipeType, expectedNumberOfRecipes int) {
 
 	recipes, err := suite.repo.List(recipeType)
 	if expectedNumberOfRecipes == 0 {

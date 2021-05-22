@@ -193,6 +193,13 @@ github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/subosito/gotenv v1.2.0 h1:Slr1R9HxAlEKefgq5jn9U+DnETlIUa6HfgEzj0g5d7s=
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
+github.com/tommzn/recipeboard-core v0.2.3/go.mod h1:Eo1pFNH/fZ8MtawDfG6Q65xK+sI3/kMPWQ4Sb2LL97s=
+github.com/tommzn/recipeboard-core/mock v0.2.5 h1:XrZ61x+JwhtOOkfIvSed4gmWuW1ooZZiYcQQGqlCkQ0=
+github.com/tommzn/recipeboard-core/mock v0.2.5/go.mod h1:xeqDj7dW1ZkYXukT6pxCAHcNU7jRqyjCskI2Too+TKU=
+github.com/tommzn/recipeboard-core/mock v0.2.7 h1:vr0kZssXhdFr1rz+a/toflHhBHJDfges7VTHDBHIzyk=
+github.com/tommzn/recipeboard-core/mock v0.2.7/go.mod h1:3zV5TNs02cYViO944i3rP52QYFy97wY4I02qsro1qH4=
+github.com/tommzn/recipeboard-core/model v0.2.6 h1:GpDFma0igGvSrin7RJZBA5skUq5pH1jvDoJU0qnfmdM=
+github.com/tommzn/recipeboard-core/model v0.2.6/go.mod h1:xPccuL91akFwkBYAXytTPA2hMoLDcmIYrA8YRz7yPzY=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
 gitlab.com/tommzn-go/aws/dynamodb v1.1.1 h1:YQG5i/4ldq+lgwoHt29IxxyfILL7DRQc4hEqp5ptZGI=
 gitlab.com/tommzn-go/aws/dynamodb v1.1.1/go.mod h1:Qtub7r8H67vC5TIkkku4I+I0xpmP5uOooezfwBh9t7w=
@@ -208,6 +215,7 @@ gitlab.com/tommzn-go/utils/secrets v1.0.5 h1:w6kHPf6UwmBneuXWl/nRCMUIFEhzuDW0SdJ
 gitlab.com/tommzn-go/utils/secrets v1.0.5/go.mod h1:Q77vbdS2O7TfjOMqG++mXenhlzSVasU43K+89GuBj+w=
 gitlab.com/tommzn-go/utils/testing v1.0.2 h1:dbQMG9yqlBmV0NeqKXyxdhsckH36uP+XRiGEfgQkmcg=
 gitlab.com/tommzn-go/utils/testing v1.0.2/go.mod h1:CFV9C1naKYF1gF5th6JPoeJefSpQ3cxOb25DzEO6eR8=
+gitlab.com/tommzn-solutions-dev/recipeboard/core v0.2.2/go.mod h1:j0AsSHbFwTRKnp8zlX7EPO94Fm4zhneJyOiR3JGXCzs=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 go.opencensus.io v0.22.0/go.mod h1:+kGneAE2xo2IficOXnaByMWTGM9T73dGwxeWcUqIpI8=

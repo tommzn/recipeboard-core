@@ -21,14 +21,6 @@ const (
 	RecipeDeleted              = "RecipeDeleted"
 )
 
-// DynamoDb ibject type.
-type objectType string
-
-const (
-	objectType_Recipe objectType = "RECIPEBOARD_RECIPE"
-	objectType_Index             = "RECIPEBOARD_INDEX"
-)
-
 // Central model for a recipe.
 type Recipe struct {
 

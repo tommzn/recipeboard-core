@@ -1,6 +1,7 @@
 package core
 
 import (
+	model "github.com/tommzn/recipeboard-core/model"
 	"gitlab.com/tommzn-go/aws/dynamodb"
 	"gitlab.com/tommzn-go/utils/config"
 	"gitlab.com/tommzn-go/utils/log"
@@ -26,7 +27,7 @@ func newRepository(conf config.Config, logger log.Logger) Repository {
 }
 
 // Persist a recipe.
-func (repo *DynamoDbRepository) Set(recipe Recipe) error {
+func (repo *DynamoDbRepository) Set(recipe model.Recipe) error {
 
 	recipeItem := toDynamoDbItem(recipe)
 	currentRecipe, _ := repo.Get(recipe.Id)
@@ -53,7 +54,7 @@ func (repo *DynamoDbRepository) Set(recipe Recipe) error {
 }
 
 // Try to retrieve a recipe for passed id.
-func (repo *DynamoDbRepository) Get(id string) (*Recipe, error) {
+func (repo *DynamoDbRepository) Get(id string) (*model.Recipe, error) {
 
 	recipeItem := &recipeItem{ItemId: newRecipeIdForDynamoDb(id)}
 	err := repo.client.Get(recipeItem)
@@ -66,9 +67,9 @@ func (repo *DynamoDbRepository) Get(id string) (*Recipe, error) {
 
 // Lists all available recipes for passed type.
 // It doesn't take care about ordering of recipes.
-func (repo *DynamoDbRepository) List(recipeType RecipeType) ([]Recipe, error) {
+func (repo *DynamoDbRepository) List(recipeType model.RecipeType) ([]model.Recipe, error) {
 
-	recipes := []Recipe{}
+	recipes := []model.Recipe{}
 	recipeIndex := newRecipeIndex(recipeType)
 	err := repo.client.Get(recipeIndex)
 	if err != nil {
@@ -87,7 +88,7 @@ func (repo *DynamoDbRepository) List(recipeType RecipeType) ([]Recipe, error) {
 }
 
 // Try to delete the passed recipe.
-func (repo *DynamoDbRepository) Delete(recipe Recipe) error {
+func (repo *DynamoDbRepository) Delete(recipe model.Recipe) error {
 
 	err := repo.removeFromIndex(recipe)
 	if err != nil {
@@ -98,7 +99,7 @@ func (repo *DynamoDbRepository) Delete(recipe Recipe) error {
 }
 
 // Adds the passed recipe id to an index depending on it's type.
-func (repo *DynamoDbRepository) appendToIndex(recipe Recipe) error {
+func (repo *DynamoDbRepository) appendToIndex(recipe model.Recipe) error {
 
 	recipeIndex := newRecipeIndex(recipe.Type)
 	repo.client.Get(recipeIndex)
@@ -107,7 +108,7 @@ func (repo *DynamoDbRepository) appendToIndex(recipe Recipe) error {
 }
 
 // Removes the id of a recipe id from an index depending on it's type.
-func (repo *DynamoDbRepository) removeFromIndex(recipe Recipe) error {
+func (repo *DynamoDbRepository) removeFromIndex(recipe model.Recipe) error {
 
 	recipeIndex := newRecipeIndex(recipe.Type)
 	repo.client.Get(recipeIndex)
@@ -116,7 +117,7 @@ func (repo *DynamoDbRepository) removeFromIndex(recipe Recipe) error {
 }
 
 // Converts the passed recipe into a DynamoDb item.
-func toDynamoDbItem(recipe Recipe) *recipeItem {
+func toDynamoDbItem(recipe model.Recipe) *recipeItem {
 	return &recipeItem{
 		ItemId:      newRecipeIdForDynamoDb(recipe.Id),
 		Type:        recipe.Type,
@@ -128,8 +129,8 @@ func toDynamoDbItem(recipe Recipe) *recipeItem {
 }
 
 // Convert the passed DynamoDb item into a recipe.
-func fromDynamoDbItem(recipeItem *recipeItem) Recipe {
-	return Recipe{
+func fromDynamoDbItem(recipeItem *recipeItem) model.Recipe {
+	return model.Recipe{
 		Id:          recipeItem.GetId(),
 		Type:        recipeItem.Type,
 		Title:       recipeItem.Title,
@@ -145,13 +146,13 @@ func newRecipeIdForDynamoDb(id string) *dynamodb.ItemId {
 }
 
 // Returns a new DynamoDb item id for passed ceipe type.
-func newIndexIdForDynamoDb(recipeType RecipeType) *dynamodb.ItemId {
+func newIndexIdForDynamoDb(recipeType model.RecipeType) *dynamodb.ItemId {
 	id := string(recipeType)
 	return dynamodb.NewItemId(string(objectType_Index), &id)
 }
 
 // Creates a new recipe index DynamoDb item
-func newRecipeIndex(recipeType RecipeType) *recipeIndex {
+func newRecipeIndex(recipeType model.RecipeType) *recipeIndex {
 	return &recipeIndex{
 		ItemId: newIndexIdForDynamoDb(recipeType),
 		Ids:    make(map[string]bool),
