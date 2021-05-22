@@ -15,7 +15,7 @@ import (
 type RepositoryTestSuite struct {
 	suite.Suite
 	conf config.Config
-	repo Repository
+	repo model.Repository
 }
 
 func TestRepositoryTestSuite(t *testing.T) {
@@ -169,7 +169,7 @@ func (suite *RepositoryTestSuite) assertRecipeCountForType(recipeType model.Reci
 
 // Create a new repository for testing with passed config and
 // a default stdout logger.
-func repositoryForTest(conf config.Config) Repository {
+func repositoryForTest(conf config.Config) model.Repository {
 	return newRepository(conf, loggerForTest())
 }
 

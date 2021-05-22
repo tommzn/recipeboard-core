@@ -53,10 +53,10 @@ type recipeIndex struct {
 type RecipeManager struct {
 
 	// Backend repository for recipes.
-	repository Repository
+	repository model.Repository
 
 	// Publisher to send notifications after actions for recipes has been performed.
-	publisher MessagePublisher
+	publisher model.MessagePublisher
 }
 
 // Adapter to persist recipes in AWS DynamoDb.

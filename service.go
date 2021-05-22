@@ -21,7 +21,7 @@ func NewRecipeServiceFromConfig(conf config.Config, logger log.Logger) RecipeSer
 	return NewRecipeService(repository, publisher, logger)
 }
 
-func NewRecipeService(repository Repository, publisher MessagePublisher, logger log.Logger) RecipeService {
+func NewRecipeService(repository model.Repository, publisher model.MessagePublisher, logger log.Logger) RecipeService {
 
 	return &RecipeManager{
 		repository: repository,
