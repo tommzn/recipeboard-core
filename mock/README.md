@@ -4,3 +4,6 @@
 
 # Recipe Board Mocks
 Provides mocks for persistence layer and publisher for the recipe board project.
+
+# Projects Docs
+Projects documentations is available at the repo [Wiki](https://github.com/tommzn/recipeboard-core/wiki).
