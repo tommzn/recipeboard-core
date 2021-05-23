@@ -1,7 +1,7 @@
-// Contains the core model and interfaces for the recipe board project.
+// Package model contains the core model and interfaces for the recipe board project.
 package model
 
-// Persistence interface to manage recipe life circle.
+// Repository is the interface for persistence layer to manage recipe life circle.
 type Repository interface {
 
 	// Persist a recipe. Can be used to insert a new recipe
@@ -19,7 +19,7 @@ type Repository interface {
 	Delete(Recipe) error
 }
 
-// Publishes messages for recipes to a queue or broker.
+// MessagePublisher will send notifications about actiosn performed for a recipe to a queue or broker.
 type MessagePublisher interface {
 
 	// Sends given message to a message queue.

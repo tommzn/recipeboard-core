@@ -10,6 +10,7 @@ import (
 	"gitlab.com/tommzn-go/utils/log"
 )
 
+// NewRecipeServiceFromConfig creates a new service with repository and publisher depending on passed config.
 func NewRecipeServiceFromConfig(conf config.Config, logger log.Logger) RecipeService {
 
 	if logger == nil {
@@ -21,11 +22,13 @@ func NewRecipeServiceFromConfig(conf config.Config, logger log.Logger) RecipeSer
 	return NewRecipeService(repository, publisher, logger)
 }
 
+// NewRecipeService creates a new service with given depencendies.
 func NewRecipeService(repository model.Repository, publisher model.MessagePublisher, logger log.Logger) RecipeService {
 
 	return &RecipeManager{
 		repository: repository,
 		publisher:  publisher,
+		logger:     logger,
 	}
 }
 
@@ -55,20 +58,20 @@ func (manager *RecipeManager) Update(recipe model.Recipe) error {
 	return manager.publisher.Send(newRecipeMessage(recipe, model.RecipeUpdated))
 }
 
-// Try to retrieve a recipe for passed id.
+// Get will return a recipe identified by given id or return with an error if there's no recipe for it.
 func (manager *RecipeManager) Get(id string) (*model.Recipe, error) {
 
 	return manager.repository.Get(id)
 }
 
-// Lists all available recipes for passed type.
+// List returns all available recipes for passed type.
 // It doesn't take care about ordering of recipes.
 func (manager *RecipeManager) List(recipeType model.RecipeType) ([]model.Recipe, error) {
 
 	return manager.repository.List(recipeType)
 }
 
-// Try to delete the passed recipe.
+// Delete will remove the recipe identified by passed id from persistence layer.
 func (manager *RecipeManager) Delete(recipe model.Recipe) error {
 
 	err := manager.repository.Delete(recipe)

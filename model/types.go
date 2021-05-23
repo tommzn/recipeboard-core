@@ -16,12 +16,12 @@ const (
 type RecipeAction string
 
 const (
-	RecipeAdded   RecipeAction = "RecipeAddedd"  // A new recipe has been added.
-	RecipeUpdated              = "RecipeUpdated" // An existing recipe has been updates.
-	RecipeDeleted              = "RecipeDeleted" // A recipe was deleted.
+	RecipeAdded   RecipeAction = "RecipeAddedd"  // RecipeAdded is the a message type used after a new recipe has been created.
+	RecipeUpdated              = "RecipeUpdated" // RecipeUpdated is is used if an existing recipe has been updates.
+	RecipeDeleted              = "RecipeDeleted" // RecipeDeleted will be send as actions after a recipe was deleted.
 )
 
-// Central model for a recipe.
+// Recipe is the core model for a single baking or cooking recipe.
 type Recipe struct {
 
 	// Identifier of  a recipe.
@@ -43,8 +43,7 @@ type Recipe struct {
 	CreatedAt time.Time
 }
 
-// A recipe message is published after an action for
-// a recipe has been performed.
+// RecipeMessage is published after an action for a recipe has been performed.
 type RecipeMessage struct {
 
 	// Message id.

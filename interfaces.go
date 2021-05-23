@@ -2,7 +2,7 @@ package core
 
 import model "github.com/tommzn/recipeboard-core/model"
 
-// Domain service to manage recipe live circls.
+// RecipeService is used to manage recipe live circle.
 type RecipeService interface {
 
 	// Create a new recipe.

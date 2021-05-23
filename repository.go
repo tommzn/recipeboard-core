@@ -26,7 +26,7 @@ func newRepository(conf config.Config, logger log.Logger) model.Repository {
 	}
 }
 
-// Persist a recipe.
+// Set can be used to create a new recipe or update an existing one.
 func (repo *DynamoDbRepository) Set(recipe model.Recipe) error {
 
 	recipeItem := toDynamoDbItem(recipe)
@@ -53,7 +53,7 @@ func (repo *DynamoDbRepository) Set(recipe model.Recipe) error {
 	return repo.client.Add(recipeItem)
 }
 
-// Try to retrieve a recipe for passed id.
+// Get will try to retrieve a recipe for passed id.
 func (repo *DynamoDbRepository) Get(id string) (*model.Recipe, error) {
 
 	recipeItem := &recipeItem{ItemId: newRecipeIdForDynamoDb(id)}
@@ -65,7 +65,7 @@ func (repo *DynamoDbRepository) Get(id string) (*model.Recipe, error) {
 	return &recipe, nil
 }
 
-// Lists all available recipes for passed type.
+// Lists will return all available recipes for passed type.
 // It doesn't take care about ordering of recipes.
 func (repo *DynamoDbRepository) List(recipeType model.RecipeType) ([]model.Recipe, error) {
 
@@ -76,7 +76,7 @@ func (repo *DynamoDbRepository) List(recipeType model.RecipeType) ([]model.Recip
 		return recipes, err
 	}
 
-	for id, _ := range recipeIndex.Ids {
+	for id := range recipeIndex.Ids {
 		recipeItem := &recipeItem{ItemId: newRecipeIdForDynamoDb(id)}
 		if err := repo.client.Get(recipeItem); err == nil {
 			recipes = append(recipes, fromDynamoDbItem(recipeItem))
@@ -87,7 +87,7 @@ func (repo *DynamoDbRepository) List(recipeType model.RecipeType) ([]model.Recip
 	return recipes, nil
 }
 
-// Try to delete the passed recipe.
+// Delete will try to remove the passed recipe.
 func (repo *DynamoDbRepository) Delete(recipe model.Recipe) error {
 
 	err := repo.removeFromIndex(recipe)
@@ -142,13 +142,13 @@ func fromDynamoDbItem(recipeItem *recipeItem) model.Recipe {
 
 // Returns a new DynamoDb item id for passed ceipe id.
 func newRecipeIdForDynamoDb(id string) *dynamodb.ItemId {
-	return dynamodb.NewItemId(string(objectType_Recipe), &id)
+	return dynamodb.NewItemId(string(objectTypeRecipe), &id)
 }
 
 // Returns a new DynamoDb item id for passed ceipe type.
 func newIndexIdForDynamoDb(recipeType model.RecipeType) *dynamodb.ItemId {
 	id := string(recipeType)
-	return dynamodb.NewItemId(string(objectType_Index), &id)
+	return dynamodb.NewItemId(string(objectTypeIndex), &id)
 }
 
 // Creates a new recipe index DynamoDb item

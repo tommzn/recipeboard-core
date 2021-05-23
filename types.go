@@ -12,8 +12,8 @@ import (
 type objectType string
 
 const (
-	objectType_Recipe objectType = "RECIPEBOARD_RECIPE"
-	objectType_Index             = "RECIPEBOARD_INDEX"
+	objectTypeRecipe objectType = "RECIPEBOARD_RECIPE"
+	objectTypeIndex             = "RECIPEBOARD_INDEX"
 )
 
 // DynamoDb recipe item.
@@ -49,7 +49,7 @@ type recipeIndex struct {
 	Ids map[string]bool
 }
 
-// Domain service to manage recipe life circle
+// RecipeManager is the domain service which mananges recipes and all depending comoponents.
 type RecipeManager struct {
 
 	// Backend repository for recipes.
@@ -57,9 +57,12 @@ type RecipeManager struct {
 
 	// Publisher to send notifications after actions for recipes has been performed.
 	publisher model.MessagePublisher
+
+	// Logger.
+	logger log.Logger
 }
 
-// Adapter to persist recipes in AWS DynamoDb.
+// DynamoDbRepository is a persistence adapter to manage recipes in AWS DynamoDb.
 type DynamoDbRepository struct {
 
 	// DynamoDb client.

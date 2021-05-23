@@ -1,4 +1,4 @@
-// Contains core components for the reipe board project.
+// Package core contains core components for the reipe board project.
 package core
 
 import "gitlab.com/tommzn-go/utils/log"
