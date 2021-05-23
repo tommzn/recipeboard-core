@@ -19,3 +19,6 @@ i.e. be used for testing.
 [![Go Reference](https://pkg.go.dev/badge/github.com/tommzn/recipeboard-core.svg)](https://pkg.go.dev/github.com/tommzn/recipeboard-core/model)
 
 Contains the core model fo recipes and messaging and interfaces for persistence layer and publishers.
+
+# Projects Docs
+Projects documentations is available at the repo [Wiki](https://github.com/tommzn/recipeboard-core/wiki).
