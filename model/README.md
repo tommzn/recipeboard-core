@@ -4,3 +4,6 @@
 
 # Recipe Board Model
 Contains the core model and interfaces for the recipe board project.
+
+# Projects Docs
+Projects documentations is available at the repo [Wiki](https://github.com/tommzn/recipeboard-core/wiki).
