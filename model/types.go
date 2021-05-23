@@ -4,15 +4,15 @@ import (
 	"time"
 )
 
-// Type is used to group recipes e.g. for cooking or baking.
+// RecipeType is used to group recipes e.g. for cooking or baking.
 type RecipeType int
 
 const (
-	CookingRecipe RecipeType = iota // Cooking recipes
-	BakingRecipe                    // Baking recipes
+	CookingRecipe RecipeType = iota // CookingRecipe is used for cooking recipes.
+	BakingRecipe                    // BakingRecipe is used for baking recipes.
 )
 
-// Action performed for a recipe.
+// RecipeAction tells a subscriber about the action performed for a recipe.
 type RecipeAction string
 
 const (

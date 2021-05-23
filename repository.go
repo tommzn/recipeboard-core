@@ -65,7 +65,7 @@ func (repo *DynamoDbRepository) Get(id string) (*model.Recipe, error) {
 	return &recipe, nil
 }
 
-// Lists will return all available recipes for passed type.
+// List returns all available recipes for passed type.
 // It doesn't take care about ordering of recipes.
 func (repo *DynamoDbRepository) List(recipeType model.RecipeType) ([]model.Recipe, error) {
 

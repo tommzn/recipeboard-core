@@ -6,7 +6,7 @@ import (
 	model "github.com/tommzn/recipeboard-core/model"
 )
 
-// Creates a new recipe repository mock which stored all recipes locally.
+// NewRepository creates a new recipe repository mock which stored all recipes locally.
 func NewRepository() *RepositoryMock {
 
 	return &RepositoryMock{
@@ -14,24 +14,23 @@ func NewRepository() *RepositoryMock {
 	}
 }
 
-// Persist a recipe.
+// Set persist a recipe in the local storage.
 func (mock *RepositoryMock) Set(recipe model.Recipe) error {
 
 	mock.Recipes[recipe.Id] = recipe
 	return nil
 }
 
-// Try to retrieve a recipe for passed id.
+// Get will returns a recipe if there's one for passed id in the local storage.
 func (mock *RepositoryMock) Get(id string) (*model.Recipe, error) {
 
 	if recipe, ok := mock.Recipes[id]; ok {
 		return &recipe, nil
-	} else {
-		return nil, errors.New("Not found.")
 	}
+	return nil, errors.New("Not found.")
 }
 
-// Lists all available recipes for passed type.
+// List all available recipes for passed type.
 // It doesn't take care about ordering of recipes.
 func (mock *RepositoryMock) List(recipeType model.RecipeType) ([]model.Recipe, error) {
 
@@ -48,13 +47,12 @@ func (mock *RepositoryMock) List(recipeType model.RecipeType) ([]model.Recipe, e
 	return recipes, err
 }
 
-// Try to delete the passed recipe.
+// Delete will remove a recipe from local storage.
 func (mock *RepositoryMock) Delete(recipe model.Recipe) error {
 
 	if _, ok := mock.Recipes[recipe.Id]; ok {
 		delete(mock.Recipes, recipe.Id)
 		return nil
-	} else {
-		return errors.New("Not found.")
 	}
+	return errors.New("Not found.")
 }
