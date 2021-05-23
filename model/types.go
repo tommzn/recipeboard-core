@@ -8,17 +8,27 @@ import (
 type RecipeType int
 
 const (
-	CookingRecipe RecipeType = iota // CookingRecipe is used for cooking recipes.
-	BakingRecipe                    // BakingRecipe is used for baking recipes.
+
+	// CookingRecipe is used for cooking recipes.
+	CookingRecipe RecipeType = iota
+
+	// BakingRecipe is used for baking recipes.
+	BakingRecipe
 )
 
 // RecipeAction tells a subscriber about the action performed for a recipe.
 type RecipeAction string
 
 const (
-	RecipeAdded   RecipeAction = "RecipeAddedd"  // RecipeAdded is the a message type used after a new recipe has been created.
-	RecipeUpdated              = "RecipeUpdated" // RecipeUpdated is is used if an existing recipe has been updates.
-	RecipeDeleted              = "RecipeDeleted" // RecipeDeleted will be send as actions after a recipe was deleted.
+
+	// RecipeAdded is the a message type used after a new recipe has been created.
+	RecipeAdded RecipeAction = "RecipeAddedd"
+
+	// RecipeUpdated is is used if an existing recipe has been updates.
+	RecipeUpdated = "RecipeUpdated"
+
+	// RecipeDeleted will be send as actions after a recipe was deleted.
+	RecipeDeleted = "RecipeDeleted"
 )
 
 // Recipe is the core model for a single baking or cooking recipe.

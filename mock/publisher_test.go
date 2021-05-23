@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-// Test suite for publsiher.
+// Test suite for publisher.
 type PublisherMockTestSuite struct {
 	suite.Suite
 }

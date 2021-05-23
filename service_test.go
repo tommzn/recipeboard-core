@@ -50,6 +50,7 @@ func (suite *RecipeServiceTestSuite) TestUpdateRecipe() {
 	recipe := recipeForServiceTest()
 
 	recipe2, err := suite.service.Create(recipe)
+	suite.Nil(err)
 
 	recipe2.Title = "New Title"
 	err = suite.service.Update(recipe2)
@@ -71,6 +72,7 @@ func (suite *RecipeServiceTestSuite) TestDeleteRecipe() {
 	recipe := recipeForServiceTest()
 
 	recipe2, err := suite.service.Create(recipe)
+	suite.Nil(err)
 
 	err = suite.service.Delete(recipe2)
 	suite.Nil(err)

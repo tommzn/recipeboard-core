@@ -8,7 +8,7 @@ import (
 	"gitlab.com/tommzn-go/utils/common"
 )
 
-// Test suite for publsiher repository.
+// Test suite for publiher repository.
 type PublisherTestSuite struct {
 	suite.Suite
 }

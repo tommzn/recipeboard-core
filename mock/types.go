@@ -12,6 +12,6 @@ type PublisherMock struct {
 // RepositoryMock is a mock with a local recipe storage.
 type RepositoryMock struct {
 
-	// Map with all avaiable recipes.
+	// Map with all available recipes.
 	Recipes map[string]model.Recipe
 }
