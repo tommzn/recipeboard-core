@@ -3,8 +3,8 @@ package core
 import (
 	"time"
 
+	utils "github.com/tommzn/go-utils"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/utils/common"
 )
 
 // Creates a new recipe message for goven recipe.
@@ -12,7 +12,7 @@ import (
 func newRecipeMessage(recipe model.Recipe, action model.RecipeAction) model.RecipeMessage {
 
 	return model.RecipeMessage{
-		Id:       common.NewId(nil),
+		Id:       utils.NewId(),
 		Action:   action,
 		Sequence: time.Now().UnixNano(),
 		Recipe:   recipe,

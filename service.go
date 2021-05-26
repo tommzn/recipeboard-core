@@ -3,10 +3,10 @@ package core
 import (
 	"time"
 
+	config "github.com/tommzn/go-config"
+	utils "github.com/tommzn/go-utils"
 	"github.com/tommzn/recipeboard-core/mock"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/utils/common"
-	"gitlab.com/tommzn-go/utils/config"
 	"gitlab.com/tommzn-go/utils/log"
 )
 
@@ -35,7 +35,7 @@ func NewRecipeService(repository model.Repository, publisher model.MessagePublis
 // Create a new recipe.
 func (manager *RecipeManager) Create(recipe model.Recipe) (model.Recipe, error) {
 
-	recipe.Id = common.NewId(nil)
+	recipe.Id = utils.NewId()
 	recipe.CreatedAt = time.Now()
 	err := manager.repository.Set(recipe)
 	if err != nil {

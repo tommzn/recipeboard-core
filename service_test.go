@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/suite"
+	config "github.com/tommzn/go-config"
+	utils "github.com/tommzn/go-utils"
 	mock "github.com/tommzn/recipeboard-core/mock"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/utils/common"
-	"gitlab.com/tommzn-go/utils/config"
 )
 
 // Test suite for recipe service.
@@ -38,7 +38,7 @@ func (suite *RecipeServiceTestSuite) TestCreateRecipe() {
 
 	recipe2, err := suite.service.Create(recipe)
 	suite.Nil(err)
-	suite.True(common.IsId(recipe2.Id))
+	suite.True(utils.IsId(recipe2.Id))
 	suite.True(recipe2.CreatedAt.After(time.Now().Add(-5 * time.Second)))
 	suite.assertQueueCount(1)
 	suite.assertActionForMessage(0, model.RecipeAdded)

@@ -1,9 +1,9 @@
 package core
 
 import (
+	config "github.com/tommzn/go-config"
 	model "github.com/tommzn/recipeboard-core/model"
 	"gitlab.com/tommzn-go/aws/dynamodb"
-	"gitlab.com/tommzn-go/utils/config"
 	"gitlab.com/tommzn-go/utils/log"
 )
 

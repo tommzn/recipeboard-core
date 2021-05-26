@@ -3,9 +3,9 @@ package core
 import (
 	"time"
 
+	config "github.com/tommzn/go-config"
+	utils "github.com/tommzn/go-utils"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/utils/common"
-	"gitlab.com/tommzn-go/utils/config"
 	"gitlab.com/tommzn-go/utils/log"
 )
 
@@ -15,15 +15,15 @@ func loggerForTest() log.Logger {
 }
 
 // Creates a config loader and returns retireved config
-func loadConfigForTest() config.Config {
-	configLoader := config.NewConfigLoader()
-	return configLoader.Load()
+func loadConfigForTest() (config.Config, error) {
+	configSource := config.NewConfigSource()
+	return configSource.Load()
 }
 
 // Creates a new recipe with dummy values for testing
 func recipeForTest() model.Recipe {
 	return model.Recipe{
-		Id:          common.NewId(nil),
+		Id:          utils.NewId(),
 		Type:        model.BakingRecipe,
 		Title:       "Bake a Cake",
 		Ingredients: "100g Mehl\n100g Zucker\n50ml Wasser",

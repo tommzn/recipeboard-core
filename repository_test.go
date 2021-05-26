@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/suite"
+	config "github.com/tommzn/go-config"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/utils/config"
 	testutils "gitlab.com/tommzn-go/utils/testing"
 )
 
@@ -25,7 +25,9 @@ func TestRepositoryTestSuite(t *testing.T) {
 // Setup test. Load config, create repository and init DynamoDb table.
 func (suite *RepositoryTestSuite) SetupTest() {
 	suite.Nil(config.UseConfigFileIfNotExists("testconfig"))
-	suite.conf = loadConfigForTest()
+	config, err := loadConfigForTest()
+	suite.Nil(err)
+	suite.conf = config
 	suite.repo = repositoryForTest(suite.conf)
 	tablename, region, endpoint := awsConfigForTest(suite.conf)
 	suite.Nil(testutils.SetupTableForTest(tablename, region, endpoint))
