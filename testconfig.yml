@@ -7,6 +7,6 @@ log:
   
 aws:
   dynamodb:
-    awsregion: eu-west-5
+    region: eu-west-5
     tablename: DynamoDbTestTable
     endpoint: http://localhost:8000

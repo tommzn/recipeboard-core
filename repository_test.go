@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/suite"
+	testutils "github.com/tommzn/aws-dynamodb/testing"
 	config "github.com/tommzn/go-config"
 	model "github.com/tommzn/recipeboard-core/model"
-	testutils "gitlab.com/tommzn-go/utils/testing"
 )
 
 // Test suite for DynamoDb repository.
@@ -24,7 +24,6 @@ func TestRepositoryTestSuite(t *testing.T) {
 
 // Setup test. Load config, create repository and init DynamoDb table.
 func (suite *RepositoryTestSuite) SetupTest() {
-	suite.Nil(config.UseConfigFileIfNotExists("testconfig"))
 	config, err := loadConfigForTest()
 	suite.Nil(err)
 	suite.conf = config
@@ -178,7 +177,7 @@ func repositoryForTest(conf config.Config) model.Repository {
 // Load DynamoDb settings from passed config
 func awsConfigForTest(conf config.Config) (*string, *string, *string) {
 	tablename := conf.Get("aws.dynamodb.tablename", nil)
-	region := conf.Get("aws.dynamodb.awsregion", nil)
+	region := conf.Get("aws.dynamodb.region", nil)
 	endpoint := conf.Get("aws.dynamodb.endpoint", nil)
 	return tablename, region, endpoint
 }

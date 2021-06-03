@@ -4,17 +4,17 @@ import (
 	"time"
 
 	config "github.com/tommzn/go-config"
+	log "github.com/tommzn/go-log"
 	utils "github.com/tommzn/go-utils"
 	"github.com/tommzn/recipeboard-core/mock"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/utils/log"
 )
 
 // NewRecipeServiceFromConfig creates a new service with repository and publisher depending on passed config.
 func NewRecipeServiceFromConfig(conf config.Config, logger log.Logger) RecipeService {
 
 	if logger == nil {
-		logger = newLogger()
+		logger = newLogger(conf)
 	}
 
 	repository := newRepository(conf, logger)

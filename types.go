@@ -3,9 +3,9 @@ package core
 import (
 	"time"
 
+	dynamodb "github.com/tommzn/aws-dynamodb"
+	log "github.com/tommzn/go-log"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/aws/dynamodb"
-	"gitlab.com/tommzn-go/utils/log"
 )
 
 // DynamoDb ibject type.
@@ -20,7 +20,7 @@ const (
 type recipeItem struct {
 
 	// Id for an item in DynamoDb.
-	*dynamodb.ItemId
+	*dynamodb.ItemIdentifier
 
 	// Type of a recipe.
 	Type model.RecipeType
@@ -43,7 +43,7 @@ type recipeItem struct {
 type recipeIndex struct {
 
 	// DynamoDb identifier.
-	*dynamodb.ItemId
+	*dynamodb.ItemIdentifier
 
 	// List of recipe ids.
 	Ids map[string]bool

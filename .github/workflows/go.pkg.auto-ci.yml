@@ -1,0 +1,46 @@
+name: Go Package Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    name: Go Tests
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get Go version
+        run: echo "goversion=`egrep -i '^go [1-2][.][0-9]+$' go.mod | sed 's/go //' | sed 's/$/.x/'`" >> $GITHUB_ENV
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.goversion }}
+      - name: Setup DynamoDB Local
+        uses: rrainn/dynamodb-action@v2.0.0
+        with:
+          dbPath: # undefined by default, if this is undefined inMemory will be used
+          sharedDb: # undefined by default
+          delayTransientStatuses: # undefined by default
+          optimizeDbBeforeStartup: # undefined by default
+          port: 8000
+          cors: '*'
+      - name: Run tests
+        env:
+          AWS_ACCESS_KEY_ID: xxx # Dummy values to avoid NoCredentialProviders error
+          AWS_SECRET_ACCESS_KEY: xxx # Dummy values to avoid NoCredentialProviders error
+        run: go test -v  -covermode=count ./...
+
+  release:
+    name: Go Package Release
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: go-semantic-release/action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

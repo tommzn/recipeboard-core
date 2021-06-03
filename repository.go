@@ -1,10 +1,10 @@
 package core
 
 import (
+	dynamodb "github.com/tommzn/aws-dynamodb"
 	config "github.com/tommzn/go-config"
+	log "github.com/tommzn/go-log"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/aws/dynamodb"
-	"gitlab.com/tommzn-go/utils/log"
 )
 
 // Creates a new DynamoDb client. Passed config have to contain at least the
@@ -56,7 +56,7 @@ func (repo *DynamoDbRepository) Set(recipe model.Recipe) error {
 // Get will try to retrieve a recipe for passed id.
 func (repo *DynamoDbRepository) Get(id string) (*model.Recipe, error) {
 
-	recipeItem := &recipeItem{ItemId: newRecipeIdForDynamoDb(id)}
+	recipeItem := &recipeItem{ItemIdentifier: newRecipeIdForDynamoDb(id)}
 	err := repo.client.Get(recipeItem)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func (repo *DynamoDbRepository) List(recipeType model.RecipeType) ([]model.Recip
 	}
 
 	for id := range recipeIndex.Ids {
-		recipeItem := &recipeItem{ItemId: newRecipeIdForDynamoDb(id)}
+		recipeItem := &recipeItem{ItemIdentifier: newRecipeIdForDynamoDb(id)}
 		if err := repo.client.Get(recipeItem); err == nil {
 			recipes = append(recipes, fromDynamoDbItem(recipeItem))
 		} else {
@@ -119,12 +119,12 @@ func (repo *DynamoDbRepository) removeFromIndex(recipe model.Recipe) error {
 // Converts the passed recipe into a DynamoDb item.
 func toDynamoDbItem(recipe model.Recipe) *recipeItem {
 	return &recipeItem{
-		ItemId:      newRecipeIdForDynamoDb(recipe.Id),
-		Type:        recipe.Type,
-		Title:       recipe.Title,
-		Ingredients: recipe.Ingredients,
-		Description: recipe.Description,
-		CreatedAt:   recipe.CreatedAt,
+		ItemIdentifier: newRecipeIdForDynamoDb(recipe.Id),
+		Type:           recipe.Type,
+		Title:          recipe.Title,
+		Ingredients:    recipe.Ingredients,
+		Description:    recipe.Description,
+		CreatedAt:      recipe.CreatedAt,
 	}
 }
 
@@ -141,20 +141,20 @@ func fromDynamoDbItem(recipeItem *recipeItem) model.Recipe {
 }
 
 // Returns a new DynamoDb item id for passed ceipe id.
-func newRecipeIdForDynamoDb(id string) *dynamodb.ItemId {
-	return dynamodb.NewItemId(string(objectTypeRecipe), &id)
+func newRecipeIdForDynamoDb(id string) *dynamodb.ItemIdentifier {
+	return dynamodb.NewItemIdentifier(id, string(objectTypeRecipe))
 }
 
 // Returns a new DynamoDb item id for passed ceipe type.
-func newIndexIdForDynamoDb(recipeType model.RecipeType) *dynamodb.ItemId {
+func newIndexIdForDynamoDb(recipeType model.RecipeType) *dynamodb.ItemIdentifier {
 	id := string(recipeType)
-	return dynamodb.NewItemId(string(objectTypeIndex), &id)
+	return dynamodb.NewItemIdentifier(id, string(objectTypeIndex))
 }
 
 // Creates a new recipe index DynamoDb item
 func newRecipeIndex(recipeType model.RecipeType) *recipeIndex {
 	return &recipeIndex{
-		ItemId: newIndexIdForDynamoDb(recipeType),
-		Ids:    make(map[string]bool),
+		ItemIdentifier: newIndexIdForDynamoDb(recipeType),
+		Ids:            make(map[string]bool),
 	}
 }

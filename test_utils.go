@@ -4,19 +4,20 @@ import (
 	"time"
 
 	config "github.com/tommzn/go-config"
+	log "github.com/tommzn/go-log"
 	utils "github.com/tommzn/go-utils"
 	model "github.com/tommzn/recipeboard-core/model"
-	"gitlab.com/tommzn-go/utils/log"
 )
 
 // Creates a new stdout logger for testing
 func loggerForTest() log.Logger {
-	return log.NewLogger(log.Debug, "dynamodb-test")
+	return log.NewLogger(log.Debug, nil, nil)
 }
 
 // Creates a config loader and returns retireved config
 func loadConfigForTest() (config.Config, error) {
-	configSource := config.NewConfigSource()
+	configFile := "testconfig.yml"
+	configSource := config.NewFileConfigSource(&configFile)
 	return configSource.Load()
 }
 
