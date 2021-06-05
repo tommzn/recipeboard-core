@@ -74,6 +74,9 @@ func (suite *RepositoryTestSuite) TestUpdateRecipe() {
 // Test list recipes by type.
 func (suite *RepositoryTestSuite) TestListRecipes() {
 
+	suite.assertRecipeCountForType(model.BakingRecipe, 0)
+	suite.assertRecipeCountForType(model.CookingRecipe, 0)
+
 	recipe1_1 := recipeForTest()
 	recipe1_2 := recipeForTest()
 	recipe1_3 := recipeForTest()
