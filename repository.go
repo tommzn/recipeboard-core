@@ -80,8 +80,6 @@ func (repo *DynamoDbRepository) List(recipeType model.RecipeType) ([]model.Recip
 		recipeItem := &recipeItem{ItemIdentifier: newRecipeIdForDynamoDb(id)}
 		if err := repo.client.Get(recipeItem); err == nil {
 			recipes = append(recipes, fromDynamoDbItem(recipeItem))
-		} else {
-			return recipes, err
 		}
 	}
 	return recipes, nil
