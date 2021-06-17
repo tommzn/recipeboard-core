@@ -35,7 +35,9 @@ func NewRecipeService(repository model.Repository, publisher model.MessagePublis
 // Create a new recipe.
 func (manager *RecipeManager) Create(recipe model.Recipe) (model.Recipe, error) {
 
-	recipe.Id = utils.NewId()
+	if !utils.IsId(recipe.Id) {
+		recipe.Id = utils.NewId()
+	}
 	recipe.CreatedAt = time.Now()
 	err := manager.repository.Set(recipe)
 	if err != nil {
