@@ -4,6 +4,7 @@ import (
 	"time"
 
 	dynamodb "github.com/tommzn/aws-dynamodb"
+	sqs "github.com/tommzn/aws-sqs"
 	log "github.com/tommzn/go-log"
 	model "github.com/tommzn/recipeboard-core/model"
 )
@@ -67,6 +68,19 @@ type DynamoDbRepository struct {
 
 	// DynamoDb client.
 	client dynamodb.Repository
+
+	// Logger.
+	logger log.Logger
+}
+
+// sqsPublisher will publishs changes at recipes to a queue in AWS SQS.
+type sqsPublisher struct {
+
+	// client is used to publish messages on AWS SQS queues.
+	client sqs.Publisher
+
+	// queueName is the name of an AWS SQS queue messages for recipe actions will be send to.
+	queueName *string
 
 	// Logger.
 	logger log.Logger

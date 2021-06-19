@@ -21,6 +21,13 @@ func loadConfigForTest() (config.Config, error) {
 	return configSource.Load()
 }
 
+// loadSqsConfigForTest will try to load config file for AWS SQS integration tests.
+func loadSqsConfigForTest() (config.Config, error) {
+	configFile := "sqstestconfig.yml"
+	configSource := config.NewFileConfigSource(&configFile)
+	return configSource.Load()
+}
+
 // Creates a new recipe with dummy values for testing
 func recipeForTest() model.Recipe {
 	return model.Recipe{

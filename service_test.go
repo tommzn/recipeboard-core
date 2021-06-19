@@ -95,6 +95,22 @@ func (suite *RecipeServiceTestSuite) TestListRecipes() {
 	suite.Equal(recipe2.Id, recipes[0].Id)
 }
 
+func (suite *RecipeServiceTestSuite) TestSqsIntegration() {
+
+	sqsConfig, err := loadSqsConfigForTest()
+	if err != nil {
+		suite.T().Skip("Skip sqs tests. Config missing.")
+	}
+
+	logger := loggerForTest()
+	service := NewRecipeService(mock.NewRepository(), newSqsPublisher(sqsConfig, logger), logger)
+
+	recipe := recipeForServiceTest()
+
+	_, err1 := service.Create(recipe)
+	suite.Nil(err1)
+}
+
 // Assert message queue in publisher has expected count.
 func (suite *RecipeServiceTestSuite) assertQueueCount(expectedNumberOfMessages int) {
 	suite.Len(suite.publisherMock.Queue, expectedNumberOfMessages)

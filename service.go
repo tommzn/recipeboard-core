@@ -6,7 +6,6 @@ import (
 	config "github.com/tommzn/go-config"
 	log "github.com/tommzn/go-log"
 	utils "github.com/tommzn/go-utils"
-	"github.com/tommzn/recipeboard-core/mock"
 	model "github.com/tommzn/recipeboard-core/model"
 )
 
@@ -18,11 +17,11 @@ func NewRecipeServiceFromConfig(conf config.Config, logger log.Logger) RecipeSer
 	}
 
 	repository := newRepository(conf, logger)
-	publisher := mock.NewPublisher()
+	publisher := newSqsPublisher(conf, logger)
 	return NewRecipeService(repository, publisher, logger)
 }
 
-// NewRecipeService creates a new service with given depencendies.
+// NewRecipeService creates a new service with given dependencies.
 func NewRecipeService(repository model.Repository, publisher model.MessagePublisher, logger log.Logger) RecipeService {
 
 	return &RecipeManager{

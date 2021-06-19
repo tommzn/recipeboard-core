@@ -31,6 +31,8 @@ github.com/aws/aws-sdk-go v1.38.14/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2z
 github.com/aws/aws-sdk-go v1.38.51/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
 github.com/aws/aws-sdk-go v1.38.53 h1:Qj5OvKPrDGTiCnWj+kwQXAlBO6OaFBH/WaRzJPZPg3w=
 github.com/aws/aws-sdk-go v1.38.53/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
+github.com/aws/aws-sdk-go v1.38.64 h1:aE178SZNBpAT9T2U5hacKJiyiRE/Li2Hax6xddVuyGA=
+github.com/aws/aws-sdk-go v1.38.64/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/beorn7/perks v1.0.0/go.mod h1:KWe93zE9D1o94FZ5RNwFwVgaQK1VOXiVxmqh+CedLV8=
 github.com/bgentry/speakeasy v0.1.0/go.mod h1:+zsyZBPWlz7T6j88CTgSN5bM796AkVf0kBD4zp0CCIs=
@@ -214,10 +216,14 @@ github.com/tommzn/aws-dynamodb v1.0.5 h1:bJ4PgY1EzGsKIhc3hLKoHbOTPd6z762j67EBcVw
 github.com/tommzn/aws-dynamodb v1.0.5/go.mod h1:loXRsEHTVDTNTThf/BEi0rAM39YUO4fApyr8cXgWIg4=
 github.com/tommzn/aws-dynamodb/testing v1.0.1 h1:OiugJp6txOh652YqC3ewVST2XCpqZgGS9kGbF+q74VY=
 github.com/tommzn/aws-dynamodb/testing v1.0.1/go.mod h1:Cq8CXGQXcekX6nCypo0BH9/w45/iTEX97WK6lCAlR2M=
+github.com/tommzn/aws-sqs v1.0.1 h1:wzS6QoRW/kNSks7p8asHrHLV8xrv2R1MscD2g5kf/vc=
+github.com/tommzn/aws-sqs v1.0.1/go.mod h1:tPRfuKOWG2ZmiW6SlNBG0yIQQWan9/FFPxcCU1GS8aM=
 github.com/tommzn/go-config v0.1.0 h1:lYNupR2u4K7qgHdMbRFSmdQEEG8habdsydBbZQQHkiE=
 github.com/tommzn/go-config v0.1.0/go.mod h1:K+ta7gkX32lSS+6tIIH9ttuhr35tV4AMAzOC640aRKE=
 github.com/tommzn/go-config v1.0.1 h1:M8kzmqdpsXv5/fmOW3eneEUArwlaGCwwE2pgKtJ72tQ=
 github.com/tommzn/go-config v1.0.1/go.mod h1:K+ta7gkX32lSS+6tIIH9ttuhr35tV4AMAzOC640aRKE=
+github.com/tommzn/go-config v1.0.5 h1:fhXq5rVvONUKDq/zmFvHWq2r/1CjaQ9WsYiHyOnvaD8=
+github.com/tommzn/go-config v1.0.5/go.mod h1:K+ta7gkX32lSS+6tIIH9ttuhr35tV4AMAzOC640aRKE=
 github.com/tommzn/go-log v1.0.0/go.mod h1:xB+EJtRRPcR+4oeenhSvKKeNq4Mqr2GjHEz1lJtYDZo=
 github.com/tommzn/go-log v1.0.1 h1:3pf9wZGNyJsNPdZ87iXVEQO6Dx7Vb65qvAksjYdvSkc=
 github.com/tommzn/go-log v1.0.1/go.mod h1:xB+EJtRRPcR+4oeenhSvKKeNq4Mqr2GjHEz1lJtYDZo=
