@@ -6,6 +6,7 @@ import (
 	config "github.com/tommzn/go-config"
 	log "github.com/tommzn/go-log"
 	utils "github.com/tommzn/go-utils"
+	mock "github.com/tommzn/recipeboard-core/mock"
 	model "github.com/tommzn/recipeboard-core/model"
 )
 
@@ -17,7 +18,12 @@ func NewRecipeServiceFromConfig(conf config.Config, logger log.Logger) RecipeSer
 	}
 
 	repository := newRepository(conf, logger)
-	publisher := newSqsPublisher(conf, logger)
+	var publisher model.MessagePublisher
+	if sqsQueue := conf.Get("aws.sqs.queue", nil); sqsQueue != nil {
+		publisher = newSqsPublisher(conf, logger)
+	} else {
+		publisher = mock.NewPublisher()
+	}
 	return NewRecipeService(repository, publisher, logger)
 }
 
