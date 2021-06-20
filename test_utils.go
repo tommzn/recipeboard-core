@@ -1,6 +1,7 @@
 package core
 
 import (
+	"os"
 	"time"
 
 	config "github.com/tommzn/go-config"
@@ -17,13 +18,6 @@ func loggerForTest() log.Logger {
 // Creates a config loader and returns retireved config
 func loadConfigForTest() (config.Config, error) {
 	configFile := "testconfig.yml"
-	configSource := config.NewFileConfigSource(&configFile)
-	return configSource.Load()
-}
-
-// loadSqsConfigForTest will try to load config file for AWS SQS integration tests.
-func loadSqsConfigForTest() (config.Config, error) {
-	configFile := "sqstestconfig.yml"
 	configSource := config.NewFileConfigSource(&configFile)
 	return configSource.Load()
 }
@@ -48,4 +42,10 @@ func recipeForServiceTest() model.Recipe {
 		Ingredients: "100g Mehl\n100g Zucker\n50ml Wasser",
 		Description: "Einrühren.\nBacken.\nFertig!",
 	}
+}
+
+// runAtCI will return true if env var CI is set.
+func runAtCI() bool {
+	_, ok := os.LookupEnv("CI")
+	return ok
 }

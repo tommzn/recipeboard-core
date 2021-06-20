@@ -97,14 +97,7 @@ func (suite *RecipeServiceTestSuite) TestListRecipes() {
 
 func (suite *RecipeServiceTestSuite) TestSqsIntegration() {
 
-	sqsConfig, err := loadSqsConfigForTest()
-	if err != nil {
-		suite.T().Skip("Skip sqs tests. Config missing.")
-	}
-
-	logger := loggerForTest()
-	service := NewRecipeService(mock.NewRepository(), newSqsPublisher(sqsConfig, logger), logger)
-
+	service := suite.serviceForSqsIntegrationTest()
 	recipe := recipeForServiceTest()
 
 	_, err1 := service.Create(recipe)
@@ -119,4 +112,19 @@ func (suite *RecipeServiceTestSuite) assertQueueCount(expectedNumberOfMessages i
 // Assert action for a recipe message.
 func (suite *RecipeServiceTestSuite) assertActionForMessage(messageIndex int, expectedAction model.RecipeAction) {
 	suite.Equal(expectedAction, suite.publisherMock.Queue[messageIndex].Action)
+}
+
+// serviceForSqsIntegrationTest returns a new service with mocked repository
+// and an AWS SQS client to test message publishing.
+func (suite *RecipeServiceTestSuite) serviceForSqsIntegrationTest() RecipeService {
+
+	if runAtCI() {
+		suite.T().Skip("Skip SQS integration test.")
+	}
+	conf, err := loadConfigForTest()
+	suite.Nil(err)
+
+	logger := loggerForTest()
+	publisher := newSqsPublisher(conf, logger)
+	return NewRecipeService(mock.NewRepository(), publisher, logger)
 }

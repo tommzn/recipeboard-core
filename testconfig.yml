@@ -10,3 +10,6 @@ aws:
     region: eu-west-5
     tablename: DynamoDbTestTable
     endpoint: http://localhost:8000
+  sqs:
+    region: eu-central-1
+    queue: tzn-unittest
